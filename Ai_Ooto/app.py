@@ -1,7 +1,6 @@
 from aiogram import executor
 
 from Ai_Ooto.utils.notify_admins import on_startup_notify
-from Ai_Ooto.utils import middlewares
 
 
 async def on_startup(dispatcher):
