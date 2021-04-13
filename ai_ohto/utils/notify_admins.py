@@ -2,7 +2,7 @@ import logging
 
 from aiogram import Dispatcher
 
-from Ai_Ooto.utils.config import ADMINS
+from ai_ohto.utils.config import ADMINS
 
 
 async def on_startup_notify(dp: Dispatcher):

@@ -5,7 +5,7 @@ from aiogram.utils.exceptions import (Unauthorized, InvalidQueryID, TelegramAPIE
                                       MessageTextIsEmpty, RetryAfter,
                                       CantParseEntities, MessageCantBeDeleted)
 
-from Ai_Ooto.loader import dp
+from ai_ohto.loader import dp
 
 
 @dp.errors_handler()

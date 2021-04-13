@@ -1,7 +1,7 @@
 from aiogram import types
 
-from Ai_Ooto.loader import dp
-from Ai_Ooto.modules.start import main_markup
+from ai_ohto.loader import dp
+from ai_ohto.modules.start import main_markup
 
 
 @dp.inline_handler()

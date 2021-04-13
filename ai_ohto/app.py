@@ -1,6 +1,6 @@
 from aiogram import executor
 
-from Ai_Ooto.utils.notify_admins import on_startup_notify
+from ai_ohto.utils.notify_admins import on_startup_notify
 
 
 async def on_startup(dispatcher):
@@ -8,5 +8,5 @@ async def on_startup(dispatcher):
 
 
 if __name__ == '__main__':
-    from Ai_Ooto.modules import dp
+    from ai_ohto.modules import dp
     executor.start_polling(dp, on_startup=on_startup)
