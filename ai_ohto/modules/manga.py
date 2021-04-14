@@ -43,9 +43,9 @@ async def manga_info(message: types.Message):
         manga_data = requests.post(manga_url, json={'query': manga_query,
                                                     'variables': variables}).json()['data'].get('Media', None)
 
-        anime_keyboard = InlineKeyboardMarkup()
+        manga_keyboard = InlineKeyboardMarkup()
         more_button = InlineKeyboardButton(text="🟡 More ", url=manga_data['siteUrl'])
-        anime_keyboard.insert(more_button)
+        manga_keyboard.insert(more_button)
         if manga_data['title']['english']:
             title = manga_data['title']['english']
         else:
@@ -61,7 +61,7 @@ async def manga_info(message: types.Message):
                              f"Genres: <code>{' '.join(manga_data['genres'])}</code>\n"
                              f"Status <b>{manga_data['status']}</b>\n\n"
                              f"Description: <i>{str(manga_data['description']).replace('<br>', ' ')}</i>"
-                             f"<a href='{manga_data['bannerImage']}'>&#xad</a>", reply_markup=anime_keyboard)
+                             f"<a href='{manga_data['bannerImage']}'>&#xad</a>", reply_markup=manga_keyboard)
     else:
         await message.answer("<code>Not found 😭 </code>")
 
