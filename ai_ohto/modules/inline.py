@@ -4,6 +4,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from ai_ohto.loader import dp
 from ai_ohto.modules.anime import anime_query, anime_url
+from ai_ohto.modules.manga import manga_url, manga_query
 from ai_ohto.modules.start import main_markup
 
 
@@ -74,6 +75,52 @@ async def inline_query(query: types.InlineQuery):
                                      f"<a href='{image}'>&#xad</a>"),
                     reply_markup=anime_keyboard,
                     thumb_url=image
+                )
+            )
+            await query.answer(results=results, cache_time=0)
+
+    elif inline_input.split()[0] == 'manga':
+        if len(inline_input.split()) == 1:
+            await query.answer(
+                results=results,
+                switch_pm_text='Search an manga',
+                switch_pm_parameter='start'
+            )
+            return
+        find = ' '.join(inline_input.split()[1:])
+        variables = {"search": find}
+        status_code = requests.post(manga_url, json={'query': manga_query,
+                                                     'variables': variables}).status_code
+        if status_code == 200:
+            manga_data = requests.post(manga_url, json={'query': manga_query,
+                                                        'variables': variables}).json()['data'].get('Media', None)
+            manga_keyboard = InlineKeyboardMarkup()
+            more_button = InlineKeyboardButton(text="🟡 More ", url=manga_data['siteUrl'])
+            manga_keyboard.insert(more_button)
+            if manga_data['title']['english']:
+                title = manga_data['title']['english']
+            else:
+                title = manga_data['title']['romaji']
+            if manga_data['title']['native']:
+                native_title = manga_data['title']['native']
+            else:
+                native_title = 'not found ;)'
+
+            results.append(
+                types.InlineQueryResultArticle(
+                    id=manga_data['id'],
+                    title=title,
+                    description=manga_data['description'],
+                    input_message_content=types.InputTextMessageContent(
+                        message_text=f"{title} <code>({native_title})</code>\n"
+                                     f"Type: <b>{manga_data['type']}</b>\n"
+                                     f"Score: <b>{manga_data['averageScore']}</b>\n"
+                                     f"Genres: <code>{' '.join(manga_data['genres'])}</code>\n"
+                                     f"Status <b>{manga_data['status']}</b>\n\n"
+                                     f"Description: <i>{str(manga_data['description']).replace('<br>', ' ')}</i>"
+                                     f"<a href='{manga_data['bannerImage']}'>&#xad</a>"),
+                    reply_markup=manga_keyboard,
+                    thumb_url=manga_data['bannerImage']
                 )
             )
             await query.answer(results=results, cache_time=0)
