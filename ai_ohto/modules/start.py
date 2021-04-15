@@ -3,6 +3,7 @@ from aiogram.dispatcher.filters.builtin import CommandStart
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from ai_ohto.loader import dp
+from ai_ohto.utils.db_api import db_helpers
 
 main_markup = InlineKeyboardMarkup(row_width=2)
 anime_button = InlineKeyboardButton(text="anime", switch_inline_query_current_chat='anime ')
@@ -20,3 +21,5 @@ async def start(message: types.Message):
                                caption="Hi, I'm Ai Ohto\n"
                                        "By clicking on the buttons below, you can try the inline mode\n"
                                        "Created by <a href='https://t.me/waydk'>waydk</a>", reply_markup=main_markup)
+    await db_helpers.add_user(id_user=message.from_user.id,
+                              name=message.from_user.full_name)
