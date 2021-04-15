@@ -1,0 +1,7 @@
+coloredlogs~=15.0
+SQLAlchemy~=1.3.23
+aiogram~=2.12.1
+gino~=1.0.1
+asyncpg~=0.22.0
+environs~=8.0.0
+requests~=2.25.1
