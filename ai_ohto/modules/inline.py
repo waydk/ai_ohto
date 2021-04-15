@@ -4,6 +4,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from ai_ohto.loader import dp
 from ai_ohto.modules.anime import anime_query, anime_url
+from ai_ohto.modules.character import character_url, character_query, shorten
 from ai_ohto.modules.manga import manga_url, manga_query
 from ai_ohto.modules.start import main_markup
 
@@ -123,4 +124,39 @@ async def inline_query(query: types.InlineQuery):
                     thumb_url=manga_data['bannerImage']
                 )
             )
+            await query.answer(results=results, cache_time=0)
+
+    elif inline_input.split()[0] == 'char':
+        if len(inline_input.split()) == 1:
+            await query.answer(
+                results=results,
+                switch_pm_text='Search an character',
+                switch_pm_parameter='start'
+            )
+            return
+        find = ' '.join(inline_input.split(' ')[1:])
+        variables = {"query": find}
+        status_code = requests.post(character_url, json={'query': character_query,
+                                                         'variables': variables}).status_code
+        if status_code == 200:
+            character_data = requests.post(character_url, json={'query': character_query,
+                                                                'variables': variables}).json()['data'].get(
+                'Character',
+                None)
+            char_keyboard = InlineKeyboardMarkup()
+            more_button = InlineKeyboardButton(text="🟡 More ", url=character_data['siteUrl'])
+            char_keyboard.insert(more_button)
+            description = shorten(str(character_data['description']).replace("__", ''), character_data['siteUrl'])
+            results.append(
+                types.InlineQueryResultPhoto(
+                    photo_url=character_data['image']['large'],
+                    id=character_data['id'],
+                    title=character_data['name']['full'],
+                    description=str(character_data['description']).replace("__", ''),
+
+                    caption=f"<code>{character_data['name']['full']}</code>\n"
+                            f"<b>Favourites</b>: <b>{character_data['favourites']}</b>\n"
+                            f"{description}\n",
+                    reply_markup=char_keyboard,
+                    thumb_url=character_data['image']['large']))
             await query.answer(results=results, cache_time=0)
