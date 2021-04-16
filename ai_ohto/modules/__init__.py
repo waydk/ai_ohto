@@ -4,5 +4,6 @@ from .anime import dp
 from .manga import dp
 from .character import dp
 from .inline import dp
+from .news import dp
 
 __all__ = ["dp"]
