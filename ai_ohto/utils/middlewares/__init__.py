@@ -1,5 +1,5 @@
 from .throttling import ThrottlingMiddleware
-from ...loader import dp
+from ai_ohto.loader import dp
 
 if __name__ == "middlewares":
     dp.middleware.setup(ThrottlingMiddleware())
