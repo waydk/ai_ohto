@@ -14,7 +14,7 @@ async def broadcast_info(message: types.Message, state: FSMContext):
     await state.set_state("message")
 
 
-@dp.message_handler(state="message")
+@dp.message_handler(state="message", content_types=types.ContentTypes.ANY)
 async def broadcast(message: types.Message, state: FSMContext):
     chats = []
     users = await db_helpers.select_all_users()
