@@ -1,6 +1,6 @@
 ![AI OOTO](https://w.wallhaven.cc/full/57/wallhaven-577221.jpg)
-# Ai Ohto 
-Telegram bot to help find <b>anime</b> or <b>manga</b>, as well as send <b>news</b> from the world of anime
+# Ai Ohto [Telegram](https://t.me/AiOhtoRobot)
+Telegram bot to help find <b>anime</b> or <b>manga</b>, as well as send <b>news</b> from the world of anime 
 
 
 ### How to use
