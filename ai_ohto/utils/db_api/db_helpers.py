@@ -13,5 +13,10 @@ async def add_user(id_user: int, name: str):
 
 
 async def select_all_users():
-    users = await User.query.gino.all()
+    users = await User.query.where(User.status_news == True).gino.all()
     return users
+
+
+async def update_news_status(id_user, status):
+    user = await User.query.where(User.id == id_user).gino.first()
+    await user.update(status_news=status).apply()

@@ -1,10 +1,39 @@
 import requests
-from aiogram import Dispatcher
+from aiogram import Dispatcher, types
+from aiogram.dispatcher.filters import Command
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from aiogram.utils.callback_data import CallbackData
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from bs4 import BeautifulSoup
 
 from ai_ohto.loader import dp
 from ai_ohto.utils.db_api import db_helpers
+
+news_callback = CallbackData("act", "title")
+news_keyboard = InlineKeyboardMarkup()
+yes_button = InlineKeyboardButton(text="yes", callback_data=news_callback.new("yes"))
+no_button = InlineKeyboardButton(text="no", callback_data=news_callback.new("no"))
+news_keyboard.insert(yes_button)
+news_keyboard.insert(no_button)
+
+
+@dp.message_handler(Command("news"))
+async def change_news_status(message: types.Message):
+    await message.answer("By clicking on the buttons below, you can decide whether or not to send you news",
+                         reply_markup=news_keyboard)
+
+
+@dp.callback_query_handler(news_callback.filter(title="yes"))
+async def yes_status(call: CallbackQuery):
+    await call.answer("News will be sent")
+    await db_helpers.update_news_status(call.from_user.id, True)
+
+
+@dp.callback_query_handler(news_callback.filter(title="no"))
+async def yes_status(call: CallbackQuery):
+    await call.answer("News will not be sent")
+    await db_helpers.update_news_status(call.from_user.id, False)
+
 
 scheduler = AsyncIOScheduler()
 
@@ -33,7 +62,7 @@ async def send_anime_news(dp: Dispatcher):
 
 
 def schedule_anime_news():
-    scheduler.add_job(send_anime_news, "cron", day_of_week='mon-sun', hour=15, minute=30, args=(dp,))
+    scheduler.add_job(send_anime_news, "cron", day_of_week='mon-sun', hour=9, minute=3, args=(dp,))
 
 
 scheduler.start()
