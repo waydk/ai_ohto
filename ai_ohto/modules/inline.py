@@ -12,12 +12,13 @@ from ai_ohto.modules.start import main_markup
 @dp.inline_handler()
 async def inline_query(query: types.InlineQuery):
     results = []
-    ai_photo = 'https://i.postimg.cc/J0px5LFm/1.png'
+    ai_photo = 'https://i.ytimg.com/vi/2ljmSYmal1g/maxresdefault.jpg'
     inline_input = query.query.lower()
     if inline_input == '':
         await query.answer(
             results=[
                 types.InlineQueryResultPhoto(
+                    title='Click here',
                     id=query.id,
                     thumb_url=ai_photo,
                     caption="Try me inline by clicking below",
