@@ -10,6 +10,9 @@ from ai_ohto.loader import dp
 from ai_ohto.utils.db_api import db_helpers
 
 news_callback = CallbackData("act", "title")
+# Needed for the news button at the start (start.py)
+main_news_callback = CallbackData("act", "title")
+
 news_keyboard = InlineKeyboardMarkup()
 yes_button = InlineKeyboardButton(text="yes", callback_data=news_callback.new("yes"))
 no_button = InlineKeyboardButton(text="no", callback_data=news_callback.new("no"))
@@ -25,13 +28,13 @@ async def change_news_status(message: types.Message):
 
 @dp.callback_query_handler(news_callback.filter(title="yes"))
 async def yes_status(call: CallbackQuery):
-    await call.answer("News will be sent")
+    await call.answer("News will be sent", show_alert=True)
     await db_helpers.update_news_status(call.from_user.id, True)
 
 
 @dp.callback_query_handler(news_callback.filter(title="no"))
 async def yes_status(call: CallbackQuery):
-    await call.answer("News will not be sent")
+    await call.answer("News will not be sent", show_alert=True)
     await db_helpers.update_news_status(call.from_user.id, False)
 
 

@@ -3,9 +3,9 @@ from asyncpg import UniqueViolationError
 from ai_ohto.utils.db_api.schemas.user import User
 
 
-async def add_user(id_user: int, name: str):
+async def add_user(id_user: int, name: str, status_news: bool):
     try:
-        user = User(id=id_user, name=name)
+        user = User(id=id_user, name=name, status_news=status_news)
         await user.create()
 
     except UniqueViolationError:

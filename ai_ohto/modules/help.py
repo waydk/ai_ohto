@@ -11,6 +11,7 @@ async def show_help(message: types.Message):
                                caption="Available commands: \n\n"
                                        "/anime <code>anime title</code> - find anime\n"
                                        "/manga <code> manga title</code> - find manga\n"
-                                       "/char <code> manga title</code> - find character\n\n"
+                                       "/char <code> manga title</code> - find character\n"
+                                       "/news - change anime news status\n\n"
                                        "<b>By clicking on the buttons below, you can try the inline mode</b>",
                                reply_markup=main_markup)
