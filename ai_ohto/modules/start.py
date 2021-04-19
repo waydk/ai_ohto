@@ -6,7 +6,7 @@ from ai_ohto.loader import dp
 from ai_ohto.modules.news import main_news_callback, news_keyboard
 from ai_ohto.utils.db_api import db_helpers
 
-main_markup = InlineKeyboardMarkup(row_width=2)
+main_markup = InlineKeyboardMarkup(row_width=3)
 anime_button = InlineKeyboardButton(text="anime", switch_inline_query_current_chat='anime ')
 manga_button = InlineKeyboardButton(text="manga", switch_inline_query_current_chat='manga ')
 character_button = InlineKeyboardButton(text="character", switch_inline_query_current_chat='char ')
@@ -26,7 +26,8 @@ async def start(message: types.Message):
                                caption="Hi, I'm Ai Ohto\n"
                                        "By clicking on the buttons below, you can try the inline mode\n"
                                        "Created by <a href='https://t.me/waydk'>waydk</a>\n\n"
-                                       "Need help? /help\n", reply_markup=main_markup)
+                                       "Need help? /help\n"
+                                       "Random anime picture /anpic", reply_markup=main_markup)
     await db_helpers.add_user(id_user=message.from_user.id,
                               name=message.from_user.full_name, status_news=True)
 
