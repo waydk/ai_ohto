@@ -42,6 +42,11 @@ anime_url = "https://graphql.anilist.co"
 
 
 async def anime_info(message: types.Message):
+    """
+    Responds to the /anime <title> command
+    :param message:
+    :return:
+    """
     anime = message.text
     find = ' '.join(anime.split(' ')[1:])
     variables = {"search": find}

@@ -30,6 +30,11 @@ manga_url = 'https://graphql.anilist.co'
 
 
 async def manga_info(message: types.Message):
+    """
+    Responds to the /manga <title> command
+    :param message:
+    :return:
+    """
     manga = message.text
     find = ' '.join(manga.split(' ')[1:])
     variables = {"search": find}

@@ -19,6 +19,11 @@ main_markup.insert(news_button)
 
 
 async def start(message: types.Message):
+    """
+    Responds to the /start command
+    :param message:
+    :return:
+    """
     await message.answer_photo("https://w.wallhaven.cc/full/57/wallhaven-577221.jpg",
                                caption="Hi, I'm Ai Ohto\n"
                                        "By clicking on the buttons below, you can try the inline mode\n"
@@ -30,6 +35,11 @@ async def start(message: types.Message):
 
 
 async def change_anime_news_status(call: CallbackQuery):
+    """
+    Change news status
+    :param call:
+    :return:
+    """
     await call.answer(cache_time=5)
     await call.message.answer("By clicking on the buttons below, you can decide whether or not to send you news",
                               reply_markup=news_keyboard)

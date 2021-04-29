@@ -4,6 +4,11 @@ from ai_ohto.modules.start import main_markup
 
 
 async def show_help(message: types.Message):
+    """
+    Responds to the /help command
+    :param message:
+    :return:
+    """
     await message.answer_photo(photo='https://w.wallhaven.cc/full/o3/wallhaven-o33j29.jpg',
                                caption="Available commands: \n\n"
                                        "/anime <code>anime title</code> - find anime\n"

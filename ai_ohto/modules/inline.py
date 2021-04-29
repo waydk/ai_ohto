@@ -2,7 +2,6 @@ import requests
 from aiogram import types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from ai_ohto.bot import dp
 from ai_ohto.modules.anime import anime_query, anime_url
 from ai_ohto.modules.character import character_url, character_query, shorten
 from ai_ohto.modules.manga import manga_url, manga_query
@@ -10,6 +9,11 @@ from ai_ohto.modules.start import main_markup
 
 
 async def inline_query(query: types.InlineQuery):
+    """
+    Search for anime, manga, characters in inline mode
+    :param query:
+    :return:
+    """
     results = []
     ai_photo = 'https://i.ytimg.com/vi/2ljmSYmal1g/maxresdefault.jpg'
     inline_input = query.query.lower()

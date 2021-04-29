@@ -29,5 +29,11 @@ async def select_all_users():
 
 
 async def update_news_status(id_user, status):
+    """
+    Update news status in DB
+    :param id_user:
+    :param status:
+    :return:
+    """
     user = await User.query.where(User.id == id_user).gino.first()
     await user.update(status_news=status).apply()

@@ -9,7 +9,6 @@ from ai_ohto.bot import dp
 from ai_ohto.utils.db_api import db_helpers
 
 news_callback = CallbackData("act", "title")
-# Needed for the news button at the start (start.py)
 main_news_callback = CallbackData("act", "title")
 
 news_keyboard = InlineKeyboardMarkup()
@@ -20,16 +19,31 @@ news_keyboard.insert(no_button)
 
 
 async def change_news_status(message: types.Message):
+    """
+    To send news or not
+    :param message:
+    :return:
+    """
     await message.answer("By clicking on the buttons below, you can decide whether or not to send you news",
                          reply_markup=news_keyboard)
 
 
 async def yes_status(call: CallbackQuery):
+    """
+    Send news
+    :param call:
+    :return:
+    """
     await call.answer("News will be sent", show_alert=True)
     await db_helpers.update_news_status(call.from_user.id, True)
 
 
 async def no_status(call: CallbackQuery):
+    """
+    Not send news
+    :param call:
+    :return:
+    """
     await call.answer("News will not be sent", show_alert=True)
     await db_helpers.update_news_status(call.from_user.id, False)
 
@@ -38,6 +52,11 @@ scheduler = AsyncIOScheduler()
 
 
 async def send_anime_news(dp: Dispatcher):
+    """
+    Send news to users
+    :param dp:
+    :return:
+    """
     users = await db_helpers.select_all_users()
     response_news = requests.get(url="https://www.animenewsnetwork.com/news/anime/")
     soup = BeautifulSoup(response_news.text, 'html.parser')
@@ -61,6 +80,10 @@ async def send_anime_news(dp: Dispatcher):
 
 
 def schedule_anime_news():
+    """
+    When to send news
+    :return:
+    """
     scheduler.add_job(send_anime_news, "cron", day_of_week='mon-sun', hour=9, minute=3, args=(dp,))
 
 

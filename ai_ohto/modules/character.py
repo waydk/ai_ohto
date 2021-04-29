@@ -25,6 +25,12 @@ character_url = 'https://graphql.anilist.co'
 
 
 def shorten(description, info="anilist.co"):
+    """
+    Shortens the description
+    :param description:
+    :param info:
+    :return:
+    """
     character_description = ""
     if len(description) > 700:
         description = description[0:500] + "...."
@@ -35,6 +41,11 @@ def shorten(description, info="anilist.co"):
 
 
 async def character_info(message: types.Message):
+    """
+    Responds to the /char <name> command
+    :param message:
+    :return:
+    """
     character = message.text
     find = ' '.join(character.split(' ')[1:])
     variables = {"query": find}
