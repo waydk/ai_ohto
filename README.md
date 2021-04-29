@@ -7,9 +7,9 @@ Telegram bot to help find <b>anime</b> or <b>manga</b>, as well as send <b>news<
 <code>Rename .env.dist to .env </code><br>
 <code>Get your id [here](https://t.me/ShowJsonBot) and replace ADMINS</code><br>
 <code>Replace BOT_TOKEN [BotFather](https://t.me/BotFather)</code><br>
-<code>Replace PGHOST on your IP or <b>localhost</b> if you run it on your PC</code><br>
-<code>Replace PGUSER to your postgres user name </code><br>
-<code>Replace PGPASSWORD</code><br>
+<code>Replace PG_HOST on your IP or <b>localhost</b> if you run it on your PC</code><br>
+<code>Replace PG_USER to your postgres user name </code><br>
+<code>Replace PG_PASSWORD</code><br>
 <code>Replace DATABASE to your postgres name db</code><br>
 
 
