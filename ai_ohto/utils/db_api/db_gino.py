@@ -1,11 +1,19 @@
 from typing import List
 
 import sqlalchemy as sa
-from aiogram import Dispatcher
+from environs import Env
 from gino import Gino
 from sqlalchemy import Column, DateTime
 
-from ai_ohto.utils import config
+env = Env()
+env.read_env()
+
+PG_HOST = env.str("PG_HOST")
+PG_USER = env.str("PG_USER")
+PG_PASSWORD = env.str("PG_PASSWORD")
+DATABASE = env.str("DATABASE")
+
+POSTGRES_URI = f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}/{DATABASE}"
 
 db = Gino()
 
@@ -33,7 +41,3 @@ class TimedBaseModel(BaseModel):
                         default=db.func.now(),
                         onupdate=db.func.now(),
                         server_default=db.func.now())
-
-
-async def on_startup(dispatcher: Dispatcher):
-    await db.set_bind(config.POSTGRES_URI)

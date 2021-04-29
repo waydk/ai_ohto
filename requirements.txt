@@ -8,3 +8,4 @@ requests~=2.25.1
 beautifulsoup4~=4.9.3
 APScheduler~=3.6.3
 aiogram-broadcaster~=0.0.5
+loguru~=0.5.3

@@ -1,9 +1,6 @@
 import requests
 from aiogram import types
-from aiogram.dispatcher.filters import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
-from ai_ohto.loader import dp
 
 manga_query = """
 query ($id: Int,$search: String) { 
@@ -32,7 +29,6 @@ query ($id: Int,$search: String) {
 manga_url = 'https://graphql.anilist.co'
 
 
-@dp.message_handler(Command("manga"))
 async def manga_info(message: types.Message):
     manga = message.text
     find = ' '.join(manga.split(' ')[1:])
@@ -64,4 +60,3 @@ async def manga_info(message: types.Message):
                              f"<a href='{manga_data['bannerImage']}'>&#xad</a>", reply_markup=manga_keyboard)
     else:
         await message.answer("<code>Not found 😭 </code>")
-

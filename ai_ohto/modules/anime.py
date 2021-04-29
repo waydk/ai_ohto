@@ -1,9 +1,6 @@
 import requests
 from aiogram import types
-from aiogram.dispatcher.filters import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
-from ai_ohto.loader import dp
 
 anime_query = """
            query ($id: Int,$search: String) {
@@ -44,7 +41,6 @@ anime_query = """
 anime_url = "https://graphql.anilist.co"
 
 
-@dp.message_handler(Command("anime"))
 async def anime_info(message: types.Message):
     anime = message.text
     find = ' '.join(anime.split(' ')[1:])

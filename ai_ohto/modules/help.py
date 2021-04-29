@@ -1,11 +1,8 @@
 from aiogram import types
-from aiogram.dispatcher.filters import Command
 
-from ai_ohto.loader import dp
 from ai_ohto.modules.start import main_markup
 
 
-@dp.message_handler(Command("help"))
 async def show_help(message: types.Message):
     await message.answer_photo(photo='https://w.wallhaven.cc/full/o3/wallhaven-o33j29.jpg',
                                caption="Available commands: \n\n"

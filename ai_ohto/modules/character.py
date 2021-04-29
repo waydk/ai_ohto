@@ -1,9 +1,6 @@
 import requests
 from aiogram import types
-from aiogram.dispatcher.filters import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
-from ai_ohto.loader import dp
 
 character_query = """
     query ($query: String) {
@@ -37,7 +34,6 @@ def shorten(description, info="anilist.co"):
     return character_description
 
 
-@dp.message_handler(Command("char"))
 async def character_info(message: types.Message):
     character = message.text
     find = ' '.join(character.split(' ')[1:])
