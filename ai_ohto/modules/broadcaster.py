@@ -1,6 +1,7 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram_broadcaster import MessageBroadcaster
+from loguru import logger
 
 from ai_ohto.utils.db_api import db_helpers
 
@@ -12,6 +13,9 @@ async def broadcast_info(message: types.Message, state: FSMContext):
     :param state:
     :return:
     """
+    logger.info(f"Admin: {message.from_user.full_name} with id ({message.from_user.id})"
+                f" started mailing")
+
     await message.answer("Enter the message to be sent in one message")
     await state.set_state("message")
 

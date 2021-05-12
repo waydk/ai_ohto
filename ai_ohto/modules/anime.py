@@ -1,7 +1,7 @@
 import requests
 from aiogram import types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
+from loguru import logger
 anime_query = """
            query ($id: Int,$search: String) {
               Media (id: $id, type: ANIME,search: $search) {
@@ -49,6 +49,9 @@ async def anime_info(message: types.Message):
     """
     anime = message.text
     find = ' '.join(anime.split(' ')[1:])
+
+    logger.info(f"{message.from_user.full_name} send /anime {find}")
+
     variables = {"search": find}
     status_code = requests.post(anime_url, json={'query': anime_query,
                                                  'variables': variables}).status_code
@@ -79,4 +82,5 @@ async def anime_info(message: types.Message):
                              f"Description: <i>{str(anime_data['description']).replace('<br>', ' ')}</i>"
                              f"<a href='{image}'>&#xad</a>", reply_markup=anime_keyboard)
     else:
+        logger.info(f"anime not found --> status code: {status_code} \n")
         await message.answer("<code>Not found 😭 </code>")

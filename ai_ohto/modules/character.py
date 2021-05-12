@@ -1,6 +1,7 @@
 import requests
 from aiogram import types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from loguru import logger
 
 character_query = """
     query ($query: String) {
@@ -48,6 +49,9 @@ async def character_info(message: types.Message):
     """
     character = message.text
     find = ' '.join(character.split(' ')[1:])
+
+    logger.info(f"{message.from_user.full_name} send /char {find}")
+
     variables = {"query": find}
     status_code = requests.post(character_url, json={'query': character_query,
                                                      'variables': variables}).status_code
@@ -65,4 +69,5 @@ async def character_info(message: types.Message):
                                            f"{description}\n",
                                    reply_markup=character_data)
     else:
+        logger.info(f"character not found --> status code: {status_code} \n")
         await message.answer("<code>Not found 😭 </code>")

@@ -14,7 +14,7 @@ async def startup(dispatcher: Dispatcher):
     modules.setup(dispatcher)
 
     # Working with the database
-    logger.info("Db work")
+    logger.info("The database is working...")
     await db.set_bind(POSTGRES_URI)
     await db.gino.create_all()
 

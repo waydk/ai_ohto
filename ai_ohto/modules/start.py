@@ -3,6 +3,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQu
 
 from ai_ohto.modules.news import main_news_callback, news_keyboard
 from ai_ohto.utils.db_api import db_helpers
+from loguru import logger
 
 main_markup = InlineKeyboardMarkup(row_width=2)
 anime_button = InlineKeyboardButton(text="anime", switch_inline_query_current_chat='anime ')
@@ -24,6 +25,7 @@ async def start(message: types.Message):
     :param message:
     :return:
     """
+    logger.info(f"{message.from_user.full_name} send /start")
     await message.answer_photo("https://s4.anilist.co/file/anilistcdn/character/large/b199892-IUa7rBAT4j9H.png",
                                caption="• Hi, I'm Ai Ohto • \n\n"
                                        "By clicking on the buttons below, you can try the inline mode\n\n"
